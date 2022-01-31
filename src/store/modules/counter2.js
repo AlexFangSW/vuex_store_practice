@@ -1,9 +1,8 @@
-import { createStore } from 'vuex'
 import axios from 'axios'
-// Modules
-import counter2 from './modules/counter2';
 
-export default createStore({
+export default ({
+  namespaced: true,
+
   state: {
     count: 0,
     colorCode: '#000000',
@@ -41,7 +40,4 @@ export default createStore({
       return state.count**2;
     }
   },
-  modules: {
-    counter2,
-  }
 })
