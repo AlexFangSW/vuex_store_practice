@@ -1,13 +1,13 @@
 <template>
   <div class="counter-container">
     <h5>CounterMap</h5>
-    <h1 :style="{color: ColorCode,}">{{Count}}</h1>
+    <h1 :style="{color: colorCode,}">{{count}}</h1>
     <div class="exponential">
-      {{Count}}<sup>2</sup>={{SquaredCount}}
+      {{count}}<sup>2</sup>={{squaredCount}}
     </div>
     <div class="buttons">
-      <button @click="AddNum">+</button>
-      <button @click="MinusNum">-</button>
+      <button @click="addNum">+</button>
+      <button @click="minusNum">-</button>
     </div>
     <input type="color" name="" id="" v-model="changeColor">
   </div>
@@ -19,32 +19,20 @@ import {mapState, mapGetters, mapActions} from 'vuex';
 export default {
   computed: {
     // Map
-    ...mapGetters({
-      SquaredCount: "counter2/squaredCount",
-    }),
-    ...mapState({
-      Count: state => state.counter2.count,
-      ColorCode: state => state.counter2.colorCode,
-    }),
+    ...mapGetters("counter2",["squaredCount"]),
+    ...mapState("counter2", ["count", "colorCode"]),
 
     changeColor: {
       get(){
-        return this.ColorCode;
+        return this.colorCode;
       },
       set(value){
-        this.SetColorCode(value);
+        this.setColorCode(value);
       }
     }
   },
   methods: {
-    // SetColorCode(value) {
-    //   this.$store.dispatch('counter2/setColorCode', value)
-    // },
-    ...mapActions({
-      SetColorCode: 'counter2/setColorCode',
-      AddNum: 'counter2/addNum',
-      MinusNum: 'counter2/minusNum',
-    }),
+    ...mapActions( "counter2",["setColorCode", "addNum", "minusNum"]),
   }
   
 }
